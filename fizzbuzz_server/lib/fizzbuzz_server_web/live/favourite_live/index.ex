@@ -33,16 +33,33 @@ defmodule FizzbuzzServerWeb.FavouriteLive.Index do
 
   @impl true
   def handle_event("next", _params, socket) do 
-    socket = socket |> assign(page: socket.assigns[:page] + 1) |> update_numbers()
-    {:noreply, socket}
+    next_page = socket.assigns[:page] + 1
+
+    path = Routes.favourite_index_path(
+      socket, :index, page: next_page, per_page: socket.assigns[:per_page]
+    )
+
+    {:noreply, push_patch(socket, to: path)}
   end
 
   @impl true
   def handle_event("back", _params, socket) do 
-    current_page = socket.assigns[:page] || 1
-    prev_page = max(1, current_page - 1)
-    socket = socket |> assign(page: prev_page) |> update_numbers()
-    {:noreply, socket}
+    prev_page = max(1, socket.assigns[:page] - 1)
+
+    path = Routes.favourite_index_path(
+      socket, :index, page: prev_page, per_page: socket.assigns[:per_page]
+    )
+
+    {:noreply, push_patch(socket, to: path)}
+  end
+
+  @impl true
+  def handle_event("update-per-page", params, socket) do
+    path = Routes.favourite_index_path(
+      socket, :index, page: socket.assigns[:page], per_page: params["per_page"]
+    )
+
+    {:noreply, push_patch(socket, to: path)}
   end
 
   def update_numbers(%{assigns: %{page: page, per_page: per_page}} = socket) do
@@ -50,6 +67,10 @@ defmodule FizzbuzzServerWeb.FavouriteLive.Index do
   end
 
   defp apply_params(socket, params) do
-    assign(socket, Pagination.parse_params(params))
+    socket |> assign(Pagination.parse_params(
+      params,
+      page: socket.assigns[:page],
+      per_page: socket.assigns[:per_page]
+    ))
   end
 end

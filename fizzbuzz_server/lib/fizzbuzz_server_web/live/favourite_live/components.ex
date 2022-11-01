@@ -3,25 +3,37 @@ defmodule FizzbuzzServerWeb.FavouriteLive.Components do
 
   def pagination(assigns) do
     ~H"""
-    <div class="pagination">
-      <button phx-click="back" class="back-button">
-        Back
-      </button>
+    <header>
+      <div class="pagination">
+        <button phx-click="back" class="back-button">
+          Back
+        </button>
 
-      <%= page_status(assigns) %>
+        <%= page_status(assigns) %>
 
-      <button phx-click="next" class="next-button">
-        Next
-      </button>
+        <button phx-click="next" class="next-button">
+          Next
+        </button>
+      </div>
 
-      <select phx-change="update-per-page">
-        <option>50</option>
-        <option>100</option>
-        <option>200</option>
-        <option>500</option>
-        <option>1000</option>
+      <.per_page_form per_page={@per_page} />
+    </header>
+    """
+  end
+
+  def per_page_form(assigns) do
+    ~H"""
+    <form phx-change="update-per-page" id="per-page">
+      <% options = [10, 50, 100, 200, 500, 1000] %>
+
+      <select name="per_page">
+        <%= for n <- options do %>
+          <option value={n} selected={@per_page == n}><%= n %></option>
+        <% end %>
       </select>
-    </div>
+
+      Per page
+    </form>
     """
   end
 

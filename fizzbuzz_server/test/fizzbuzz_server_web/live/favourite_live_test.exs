@@ -47,4 +47,13 @@ defmodule FizzbuzzServerWeb.FavouriteLiveTest do
     {:ok, _index_live, html} = live(conn, path)
     assert html =~ "Showing page 1 at 10 per page."
   end
+
+  test "updates per_page value", %{conn: conn} do
+    path = Routes.favourite_index_path(conn, :index)
+    {:ok, index_live, _html} = live(conn, path)
+
+    assert index_live
+      |> form("form#per-page", %{per_page: 1000})
+      |> render_change() =~ "Showing page 1 at 1000 per page."
+  end
 end

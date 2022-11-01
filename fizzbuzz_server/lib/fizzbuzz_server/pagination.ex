@@ -7,7 +7,7 @@ defmodule FizzbuzzServer.Pagination do
 
   @min_page 1
   @start_page 1
-  @default_per_page 10
+  @default_per_page 100
 
   @doc """
   Given a current page and a per-page value returns the starting number and ending number for
@@ -22,9 +22,9 @@ defmodule FizzbuzzServer.Pagination do
   @doc """
   Takes a map of URL parameters and applies constraints and defaults.
   """
-  def parse_params(params) do
-    page = ensure_integer(params["page"], @start_page)
-    per_page = ensure_integer(params["per_page"], @default_per_page)
+  def parse_params(params, page: page, per_page: per_page) do
+    page = ensure_integer(params["page"], page || @start_page)
+    per_page = ensure_integer(params["per_page"], per_page || @default_per_page)
 
     [page: page, per_page: per_page]
   end
