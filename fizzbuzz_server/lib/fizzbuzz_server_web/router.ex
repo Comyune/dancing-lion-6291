@@ -17,7 +17,6 @@ defmodule FizzbuzzServerWeb.Router do
   scope "/", FizzbuzzServerWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
   end
 
   # Other scopes may use custom stacks.
