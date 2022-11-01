@@ -1,4 +1,8 @@
 defmodule FizzbuzzServerWeb.Telemetry do
+  @moduledoc """
+  Provides telemetry data for the phoenix web application.
+  """
+
   use Supervisor
   import Telemetry.Metrics
 
