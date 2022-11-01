@@ -1,0 +1,26 @@
+.number-display {
+  width: 100%;
+  display: flex;
+  padding: 1rem;
+}
+
+.number-display.favourite {
+  background: #EEE;
+}
+
+.number-display .remove-button {
+  background: white;
+  color: #0069d9;
+}
+
+.number-display .remove-button:hover {
+  background: #EEE;
+}
+
+.number-display .number {
+  min-width: 10rem;
+}
+
+.number-display .result {
+  min-width: 10rem;
+}
