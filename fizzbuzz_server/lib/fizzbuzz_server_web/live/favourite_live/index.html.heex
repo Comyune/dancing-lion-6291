@@ -5,3 +5,12 @@
 <%= for {number, result, favourite} <- @numbers do %>
   <.number_display number={number} result={result} favourite={favourite} />
 <% end %>
+
+<%= if Enum.empty? @numbers do %>
+  <p>
+    Sorry your desire for FizzBuzz has exceeded normal human parameters
+    and we're afraid you might be a robot.
+
+    Please contact your system administrator for support.
+  </p>
+<% end %>

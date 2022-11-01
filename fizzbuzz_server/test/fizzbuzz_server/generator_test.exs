@@ -1,5 +1,5 @@
 defmodule FizzBuzzServer.GeneratorTest do
-  alias FizzBuzzServer.Generator
+  alias FizzbuzzServer.Generator
   use ExUnit.Case
 
   describe "Basic functionality" do

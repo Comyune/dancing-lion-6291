@@ -58,8 +58,28 @@ defmodule FizzbuzzServer.FavouritesTest do
         %Favourite{id: n} |> Repo.insert()
       end)
 
-      result = Favourites.between(5, 15)
+      result = Favourites.between(5..15)
       assert result == [5, 6, 9, 15]
+    end
+  end
+
+  describe "get_numbers/2" do
+    test "returns valid number tuples" do
+      assert Favourites.get_numbers(page: 1, per_page: 2) == [
+        {1, 1, false}, {2, 2, false}
+      ]
+
+      assert Favourites.get_numbers(page: 2, per_page: 3) == [
+        {4, 4, false}, {5, "Buzz", false}, {6, "Fizz", false}
+      ]
+    end
+
+    test "limits results to numbers under 100,000,000,000" do
+      result = Favourites.get_numbers(page: 1_000_000_000, per_page: 100)
+      assert length(result) == 100
+
+      result = Favourites.get_numbers(page: 1_000_000_001, per_page: 100)
+      assert Enum.empty? result
     end
   end
 end

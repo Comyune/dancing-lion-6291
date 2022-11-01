@@ -1,13 +1,7 @@
 defmodule FizzbuzzServerWeb.FavouriteLiveTest do
   alias FizzbuzzServer.{Repo, Favourites.Favourite}
   use FizzbuzzServerWeb.ConnCase
-
   import Phoenix.LiveViewTest
-
-  setup do
-    Repo.delete_all(Favourite)
-    :ok
-  end
 
   test "saves favourites, updates the buttons, and deletes", %{conn: conn} do
     {:ok, index_live, _html} = live(conn, Routes.favourite_index_path(conn, :index))
@@ -39,5 +33,18 @@ defmodule FizzbuzzServerWeb.FavouriteLiveTest do
       |> render_click()
 
     assert html =~ "Showing page 2 at 10 per page."
+  end
+
+  test "rendering absurdly large pages", %{conn: conn} do
+    path = Routes.favourite_index_path(conn, :index, page: 999_000_000_000, per_page: 10)
+    {:ok, _index_live, html} = live(conn, path)
+    assert html =~ "Showing page 999000000000 at 10 per page."
+    assert html =~ "Sorry your desire for FizzBuzz has exceeded normal human parameters"
+  end
+
+  test "rendering bogus page values", %{conn: conn} do
+    path = Routes.favourite_index_path(conn, :index, page: "bogus", per_page: 10)
+    {:ok, _index_live, html} = live(conn, path)
+    assert html =~ "Showing page 1 at 10 per page."
   end
 end
