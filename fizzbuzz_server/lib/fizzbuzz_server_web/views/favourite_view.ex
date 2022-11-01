@@ -6,8 +6,16 @@ defmodule FizzbuzzServerWeb.FavouriteView do
     %{numbers: numbers}
   end
 
-  def render("show.json", conn) do
-    number = conn[:favourite].id
-    %{number: number, result: Generator.call(number), favourite: true}
+  def render("show.json", %{favourite: %{id: id}}) do
+    %{number: id, result: Generator.call(id), favourite: true}
+  end
+
+  def render("delete.json", %{favourite: %{id: id}}) do
+    %{
+      number: id,
+      result: Generator.call(id),
+      favourite: true,
+      deleted: true
+    }
   end
 end

@@ -45,7 +45,13 @@ defmodule FizzbuzzServerWeb.FavouriteControllerTest do
     test "deletes chosen favourite", %{conn: conn, favourite: favourite} do
       path = Routes.favourite_path(conn, :delete, favourite.id)
       conn = delete(conn, path)
-      assert response(conn, 204)
+
+      assert json_response(conn, 200) == %{
+        "deleted" => true,
+        "number" => favourite.id,
+        "result" => "#{favourite.id}",
+        "favourite" => true,
+      }
     end
   end
 

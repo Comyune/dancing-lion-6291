@@ -31,7 +31,7 @@ defmodule FizzbuzzServerWeb.FavouriteController do
     favourite = Favourites.get_favourite!(id)
 
     with {:ok, %Favourite{}} <- Favourites.delete_favourite(favourite) do
-      send_resp(conn, :no_content, "")
+      render(conn, "delete.json", favourite: favourite)
     end
   end
 end
