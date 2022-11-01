@@ -4,9 +4,9 @@ defmodule FizzBuzzServer.GeneratorTest do
 
   describe "Basic functionality" do
     test "returns any integer within range not divisible by either 3 or 5" do
-      assert Generator.call(1) == 1
-      assert Generator.call(2) == 2
-      assert Generator.call(4) == 4
+      assert Generator.call(1) == "1"
+      assert Generator.call(2) == "2"
+      assert Generator.call(4) == "4"
     end
 
     test "returns the string 'Fizz' when the input is divible by 3" do

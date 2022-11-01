@@ -14,10 +14,10 @@ defmodule FizzbuzzServer.Favourites do
   Returns the list of favourite.
 
   ## Examples
-      iex> list_favourite()
+      iex> list_favourites()
       [%Favourite{}, ...]
   """
-  def list_favourite do
+  def list_favourites do
     Repo.all(Favourite)
   end
 
@@ -107,7 +107,6 @@ defmodule FizzbuzzServer.Favourites do
 
     for i <- range do
       if i <= @maximum_number, do: {i, Generator.call(i), Enum.member?(favourites, i)}
-    end
-      |> Enum.reject(&is_nil/1)
+    end |> Enum.reject(&is_nil/1)
   end
 end

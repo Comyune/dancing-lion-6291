@@ -26,13 +26,13 @@ defmodule FizzbuzzServerWeb.FavouriteLiveTest do
   test "can traverse back and forth across pages", %{conn: conn} do
     {:ok, index_live, html} = live(conn, Routes.favourite_index_path(conn, :index))
 
-    assert html =~ "Showing page 1 at 10 per page."
+    assert html =~ "Showing page 1 at 100 per page."
 
     html = index_live
       |> element(".pagination .next-button")
       |> render_click()
 
-    assert html =~ "Showing page 2 at 10 per page."
+    assert html =~ "Showing page 2 at 100 per page."
   end
 
   test "rendering absurdly large pages", %{conn: conn} do

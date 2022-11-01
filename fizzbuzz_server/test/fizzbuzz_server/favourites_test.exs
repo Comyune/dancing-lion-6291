@@ -10,7 +10,7 @@ defmodule FizzbuzzServer.FavouritesTest do
 
     test "list_favourite/0 returns all favourite" do
       favourite = favourite_fixture()
-      assert Favourites.list_favourite() == [favourite]
+      assert Favourites.list_favourites() == [favourite]
     end
 
     test "get_favourite!/1 returns the favourite with given id" do
@@ -66,11 +66,11 @@ defmodule FizzbuzzServer.FavouritesTest do
   describe "get_numbers/2" do
     test "returns valid number tuples" do
       assert Favourites.get_numbers(page: 1, per_page: 2) == [
-        {1, 1, false}, {2, 2, false}
+        {1, "1", false}, {2, "2", false}
       ]
 
       assert Favourites.get_numbers(page: 2, per_page: 3) == [
-        {4, 4, false}, {5, "Buzz", false}, {6, "Fizz", false}
+        {4, "4", false}, {5, "Buzz", false}, {6, "Fizz", false}
       ]
     end
 

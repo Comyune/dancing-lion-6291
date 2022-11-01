@@ -10,5 +10,5 @@ defmodule FizzbuzzServer.Generator do
   def call(input) when rem(input, 3) == 0 and rem(input, 5) == 0, do: "FizzBuzz"
   def call(input) when rem(input, 5) == 0, do: "Buzz"
   def call(input) when rem(input, 3) == 0, do: "Fizz"
-  def call(input), do: input
+  def call(input), do: "#{input}"
 end
