@@ -1,6 +1,6 @@
 <h1>FizzBuzz</h1>
 
-<.pagination current_page={@page} per_page={@per_page} />
+<.pagination page={@page} per_page={@per_page} />
 
 <%= for {number, result, favourite} <- @numbers do %>
   <.number_display number={number} result={result} favourite={favourite} />

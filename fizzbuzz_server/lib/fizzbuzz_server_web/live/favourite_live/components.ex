@@ -4,10 +4,15 @@ defmodule FizzbuzzServerWeb.FavouriteLive.Components do
   def pagination(assigns) do
     ~H"""
     <div class="pagination">
-      <button phx-click="back">Back</button>
-      <%= page_browser(assigns) %>
-      <button phx-click="next">Next</button>
+      <button phx-click="back" class="back-button">
+        Back
+      </button>
 
+      <%= page_status(assigns) %>
+
+      <button phx-click="next" class="next-button">
+        Next
+      </button>
 
       <select phx-change="update-per-page">
         <option>50</option>
@@ -20,11 +25,11 @@ defmodule FizzbuzzServerWeb.FavouriteLive.Components do
     """
   end
 
-  def page_browser(assigns) do
+  def page_status(assigns) do
     ~H"""
-    <span>1</span>
-    <span>2</span>
-    <span>3</span>
+    <span class="current-page">
+      Showing page <%= @page %> at <%= @per_page %> per page.
+    </span>
     """
   end
 
