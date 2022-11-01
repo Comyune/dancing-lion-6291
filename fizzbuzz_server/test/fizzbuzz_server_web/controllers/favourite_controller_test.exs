@@ -1,11 +1,7 @@
 defmodule FizzbuzzServerWeb.FavouriteControllerTest do
   use FizzbuzzServerWeb.ConnCase
   import FizzbuzzServer.FavouritesFixtures
-  alias FizzbuzzServer.{Favourites, Favourites.Favourite}
-
-  @create_attrs %{id: 5}
-  @update_attrs %{id: 123}
-  @invalid_attrs %{id: "bogus"}
+  alias FizzbuzzServer.Favourites
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}

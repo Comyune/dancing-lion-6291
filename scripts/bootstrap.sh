@@ -9,14 +9,16 @@ cd $ROOT_DIRECTORY
 echo "#=== Installing ASDF dependencies..."
 asdf install
 
-cd $SERVER_DIRECTORY
+pushd $SERVER_DIRECTORY
 echo "#=== Getting mix dependencies..."
 mix deps.get
 
 echo "#=== Preparing ecto databases..."
 mix ecto.create && mix ecto.migrate
 MIX_ENV=test mix ecto.create && mix ecto.migrate
+popd
 
-cd $CLI_DIRECTORY
+pushd $CLI_DIRECTORY
 echo "#=== Installing NPM depencies"
 npm install
+popd
