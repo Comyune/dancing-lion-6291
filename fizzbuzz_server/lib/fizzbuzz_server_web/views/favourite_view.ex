@@ -1,6 +1,5 @@
 defmodule FizzbuzzServerWeb.FavouriteView do
   use FizzbuzzServerWeb, :view
-  alias FizzbuzzServerWeb.FavouriteView
   alias FizzbuzzServer.Generator
 
   def render("index.json", %{numbers: numbers}) do
