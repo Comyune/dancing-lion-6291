@@ -17,6 +17,7 @@ defmodule FizzbuzzServerWeb.Router do
   scope "/", FizzbuzzServerWeb do
     pipe_through :browser
 
+    live "/favourite", FavouriteLive.Index, :index
   end
 
   # Other scopes may use custom stacks.
