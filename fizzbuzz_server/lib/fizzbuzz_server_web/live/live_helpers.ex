@@ -1,4 +1,8 @@
 defmodule FizzbuzzServerWeb.LiveHelpers do
+  @moduledoc """
+  Provides helper functions to all LiveViews in the application.
+  """
+
   import Phoenix.LiveView
   import Phoenix.LiveView.Helpers
 

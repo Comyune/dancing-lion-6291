@@ -1,10 +1,7 @@
 <h1>FizzBuzz</h1>
 
-<.live_component
-  module={FizzbuzzServerWeb.FavouriteLive.FormComponent}
-  id={@favourite.id || :new}
-  title={@page_title}
-  action={@live_action}
-  favourite={@favourite}
-  return_to={Routes.favourite_index_path(@socket, :index)}
-/>
+<.pagination current_page={@page} per_page={@per_page} />
+
+<%= for {number, result, favourite} <- @numbers do %>
+  <.number_display number={number} result={result} favourite={favourite} />
+<% end %>

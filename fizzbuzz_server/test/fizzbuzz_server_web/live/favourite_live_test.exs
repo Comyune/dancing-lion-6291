@@ -1,74 +1,31 @@
 defmodule FizzbuzzServerWeb.FavouriteLiveTest do
+  alias FizzbuzzServer.{Repo, Favourites.Favourite}
   use FizzbuzzServerWeb.ConnCase
 
   import Phoenix.LiveViewTest
-  import FizzbuzzServer.FavouritesFixtures
 
-  @create_attrs %{}
-  @update_attrs %{}
-  @invalid_attrs %{}
-
-  defp create_favourite(_) do
-    favourite = favourite_fixture()
-    %{favourite: favourite}
+  setup do
+    Repo.delete_all(Favourite)
+    :ok
   end
 
-  describe "Index" do
-    setup [:create_favourite]
+  test "saves favourites, updates the buttons, and deletes", %{conn: conn} do
+    {:ok, index_live, _html} = live(conn, Routes.favourite_index_path(conn, :index))
 
-    test "lists all favourite", %{conn: conn} do
-      {:ok, _index_live, html} = live(conn, Routes.favourite_index_path(conn, :index))
+    index_live
+      |> element("#number-display-5 button", "Save")
+      |> render_click()
 
-      assert html =~ "Listing Favourite"
-    end
+    index_live
+      |> element("#number-display-3 button", "Save")
+      |> render_click()
 
-    test "saves new favourite", %{conn: conn} do
-      {:ok, index_live, _html} = live(conn, Routes.favourite_index_path(conn, :index))
+    index_live
+      |> element("#number-display-3 button", "Remove")
+      |> render_click()
 
-      assert index_live |> element("a", "New Favourite") |> render_click() =~
-               "New Favourite"
-
-      assert_patch(index_live, Routes.favourite_index_path(conn, :new))
-
-      assert index_live
-             |> form("#favourite-form", favourite: @invalid_attrs)
-             |> render_change() =~ "can&#39;t be blank"
-
-      {:ok, _, html} =
-        index_live
-        |> form("#favourite-form", favourite: @create_attrs)
-        |> render_submit()
-        |> follow_redirect(conn, Routes.favourite_index_path(conn, :index))
-
-      assert html =~ "Favourite created successfully"
-    end
-
-    test "updates favourite in listing", %{conn: conn, favourite: favourite} do
-      {:ok, index_live, _html} = live(conn, Routes.favourite_index_path(conn, :index))
-
-      assert index_live |> element("#favourite-#{favourite.id} a", "Edit") |> render_click() =~
-               "Edit Favourite"
-
-      assert_patch(index_live, Routes.favourite_index_path(conn, :edit, favourite))
-
-      assert index_live
-             |> form("#favourite-form", favourite: @invalid_attrs)
-             |> render_change() =~ "can&#39;t be blank"
-
-      {:ok, _, html} =
-        index_live
-        |> form("#favourite-form", favourite: @update_attrs)
-        |> render_submit()
-        |> follow_redirect(conn, Routes.favourite_index_path(conn, :index))
-
-      assert html =~ "Favourite updated successfully"
-    end
-
-    test "deletes favourite in listing", %{conn: conn, favourite: favourite} do
-      {:ok, index_live, _html} = live(conn, Routes.favourite_index_path(conn, :index))
-
-      assert index_live |> element("#favourite-#{favourite.id} a", "Delete") |> render_click()
-      refute has_element?(index_live, "#favourite-#{favourite.id}")
-    end
+    favourites = Repo.all(Favourite)
+    assert length(favourites) == 1
+    assert List.first(favourites).id == 5
   end
 end

@@ -1,4 +1,8 @@
 defmodule FizzbuzzServer.Favourites.Favourite do
+  @moduledoc """
+  This module represents the user's favourite numbers for persistance.
+  """
+  
   use Ecto.Schema
   import Ecto.Changeset
 

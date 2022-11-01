@@ -101,4 +101,13 @@ defmodule FizzbuzzServer.Favourites do
   def change_favourite(%Favourite{} = favourite, attrs \\ %{}) do
     Favourite.changeset(favourite, attrs)
   end
+
+  @doc "Returns all numbers saved between 2 numbers inclusive."
+  def between(start_number, end_number) do
+    query = from f in Favourite,
+      select: f.id,
+      where: f.id >= ^start_number and f.id <= ^end_number
+
+    Repo.all(query)
+  end
 end

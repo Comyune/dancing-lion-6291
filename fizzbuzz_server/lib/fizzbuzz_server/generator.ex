@@ -1,4 +1,4 @@
-defmodule FizzBuzzServer.Generator do
+defmodule FizzbuzzServer.Generator do
   @moduledoc """
   Generates a FizzBuzz response for a given input.
   """

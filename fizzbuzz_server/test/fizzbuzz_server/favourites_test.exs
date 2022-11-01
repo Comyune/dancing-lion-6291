@@ -21,7 +21,7 @@ defmodule FizzbuzzServer.FavouritesTest do
     test "create_favourite/1 with arbitrary id creates a favourite" do
       valid_attrs = %{id: 123}
 
-      assert {:ok, %Favourite{} = favourite} = Favourites.create_favourite(valid_attrs)
+      assert {:ok, %Favourite{}} = Favourites.create_favourite(valid_attrs)
     end
 
     test "create_favourite/1 with invalid data returns error changeset" do
@@ -32,7 +32,7 @@ defmodule FizzbuzzServer.FavouritesTest do
       favourite = favourite_fixture()
       update_attrs = %{}
 
-      assert {:ok, %Favourite{} = favourite} = Favourites.update_favourite(favourite, update_attrs)
+      assert {:ok, %Favourite{}} = Favourites.update_favourite(favourite, update_attrs)
     end
 
     test "update_favourite/2 with invalid data returns error changeset" do
@@ -50,6 +50,16 @@ defmodule FizzbuzzServer.FavouritesTest do
     test "change_favourite/1 returns a favourite changeset" do
       favourite = favourite_fixture()
       assert %Ecto.Changeset{} = Favourites.change_favourite(favourite)
+    end
+
+    test "between/2 returns a set of favourites between 2 numbers inclusive" do
+      [1, 5, 6, 9, 15, 21]
+      |> Enum.map(fn n ->
+        %Favourite{id: n} |> Repo.insert()
+      end)
+
+      result = Favourites.between(5, 15)
+      assert result == [5, 6, 9, 15]
     end
   end
 end
